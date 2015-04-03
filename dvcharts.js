@@ -47,6 +47,7 @@ function createGraph(name, datafile, location, series){
   // datafile = JSON
   // location = DOM id
   // series = array of objects each returned by initializeSeries()
+
   $.getJSON(datafile, function(data){
     $.each(data,function(key,val){
       var time = key;
@@ -80,5 +81,26 @@ function createGraph(name, datafile, location, series){
     }
     console.log(options);
     var chart = new Highcharts.Chart(options);
+  });
+}
+
+function createCSVGraph(datafile, location){
+  $.get(datafile, function(csv){
+    $(location).highcharts({
+        chart: {
+            type: 'column'
+        },
+        data: {
+            csv: csv
+        },
+        title: {
+            text: 'Fruit Consumption'
+        },
+        yAxis: {
+            title: {
+                text: 'Units'
+            }
+        }
+    });
   });
 }
